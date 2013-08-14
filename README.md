@@ -12,25 +12,41 @@ I was looking at these tutorials:
 
     /app
       /components
-        Default.scala - trait to extend all the default services and repositories you would want to use by default.
+        Default            - trait to extend all the default services
+                             and repositories you would want to use
+                             by default.
       /controllers
-        Application - defines app config (namely inheriting components.Default) for all other controllers
-        Landing - renders HTML for landing route
-        Users - JSON API for Users, makes use of UserService (and thereby the UserRepository)
+        Application        - defines app config (namely inheriting
+                             components.Default) for all other
+                             controllers
+        Landing            - renders HTML for landing route
+        Users              - JSON API for Users, makes use of UserService
+                             (and thereby the UserRepository)
       /entities
-        User - the only entity in the entire app, has implicit JSON serialization and Anorm SQL Result mapping
+        User               - the only entity in the entire app, has
+                             implicit JSON serialization and Anorm SQL
+                             Result mapping
       /repositories
-        UserRepository - traits and classes for handling data layer for Users, implementation of Anorm
+        UserRepository     - traits and classes for handling data layer
+                             for Users, implementation of Anorm
       /services
-    /conf - some configs
+    /conf                  - some configs
     /project
-      Build.scala - note that while Play 2.x bundles specs2 and mockito for testing it does not do so for simply running the app
+      Build.scala          - note that while Play 2.x bundles specs2
+                             and mockito for testing it does not do so for
+                             simply running the app
     /test
       /repositories
-        UserRepositorySpec - bit redundant to write tests on this with a FakeApplication since the routes spec covers the same code, was just being thorough :)
+        UserRepositorySpec - bit redundant to write tests on this with
+                             a FakeApplication since the routes spec covers
+                             the same code, was just being thorough :)
       /routes
-        LandingRouteSpec - just being thorough, covers the only HTML route
-        UserRouteSpec - covers the JSON Users API with FakeApplication instances
+        LandingRouteSpec   - just being thorough, covers the only HTML
+                             route
+        UserRouteSpec      - covers the JSON Users API with FakeApplication
+                             instances
       /services
-        UserServiceSpec - unit tests the UserService by mocking UserRepository with Mockito (doesn't really test anything, just showing for demo purposes)
-      package.scala - helper method for FakeApplication config
+        UserServiceSpec    - unit tests the UserService by mocking
+                             UserRepository with Mockito (doesn't really test
+                             anything, just showing for demo purposes)
+      package.scala        - helper method for FakeApplication config
