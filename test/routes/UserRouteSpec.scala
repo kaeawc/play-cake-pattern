@@ -1,5 +1,6 @@
 package test.routes
 
+
 import org.specs2.mutable._
 import org.specs2.mock.Mockito
 
@@ -50,7 +51,7 @@ class UserRouteSpec
       }
     }
 
-    "not found if the user exists" in {
+    "found if the user exists" in {
       running(inMemory) {
 
         val header = FakeRequest(GET, "/user/1")
