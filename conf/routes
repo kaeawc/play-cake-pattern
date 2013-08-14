@@ -1,3 +1,9 @@
-GET     /                           controllers.Application.index
+GET     /                           controllers.Landing.index
+
+GET     /user/:id                   controllers.Users.getById(id:Long)
+GET     /users/by/name/:name        controllers.Users.findByName(name:String)
+GET     /user/by/email/:email       controllers.Users.getByEmail(email:String)
+POST    /user                       controllers.Users.create
+DELETE  /user/:id                   controllers.Users.expire(id:Long)
 
 GET     /*file                      controllers.Assets.at(path="/public", file)
