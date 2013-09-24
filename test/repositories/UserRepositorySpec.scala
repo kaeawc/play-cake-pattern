@@ -1,9 +1,12 @@
 package test.repositories
 
 import test._
+
 import play.api.test.Helpers._
+
 import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
+
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
@@ -18,7 +21,7 @@ class UserRepositorySpec
 
         val result = userRepository.getById(1L)
 
-        Await.result(result, Duration(5, MILLISECONDS)) must beSome
+        Await.result(result, Duration(500, MILLISECONDS)) must beSome
 
       }
     }
@@ -28,7 +31,7 @@ class UserRepositorySpec
     "return a list of users" in {
       running(inMemory) {
 
-        val wait = Duration(15, MILLISECONDS)
+        val wait = Duration(500, MILLISECONDS)
 
         Await.result(userRepository.findByName("a"), wait).length must between(6,7)
         Await.result(userRepository.findByName("b"), wait).length must between(1,1)
@@ -49,7 +52,7 @@ class UserRepositorySpec
 
         val result = userRepository.getByEmail("ben@company.com")
 
-        Await.result(result, Duration(5, MILLISECONDS)) must beSome
+        Await.result(result, Duration(500, MILLISECONDS)) must beSome
 
       }
     }
@@ -61,7 +64,7 @@ class UserRepositorySpec
 
         val request = userRepository.create("zed","zed@company.com","zed's Ultimate password!")
 
-        val result = Await.result(request, Duration(10, MILLISECONDS))
+        val result = Await.result(request, Duration(500, MILLISECONDS))
 
         result must beSome
 
@@ -77,7 +80,7 @@ class UserRepositorySpec
 
         val result = userRepository.expire(1L)
 
-        Await.result(result, Duration(5, MILLISECONDS)) must equalTo(1L)
+        Await.result(result, Duration(500, MILLISECONDS)) must equalTo(1L)
       }
     }
   }
