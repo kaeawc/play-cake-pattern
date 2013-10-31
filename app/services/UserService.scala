@@ -19,5 +19,7 @@ trait UserServiceComponent {
 
     def expire(id:Long) = userRepository.expire(id)
 
+    def findByAge(age:Int) = userRepository.findByAge(age)
+
   }
 }

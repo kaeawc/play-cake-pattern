@@ -77,6 +77,29 @@ class UserRouteSpec
     }
   }
 
+  "GET /users/by/age/:age" should {
+    "return a list of users" in {
+      running(inMemory) {
+
+        val header = FakeRequest(GET, "/users/by/age/52")
+
+        val result = route(header).get
+
+        status(result) must equalTo(200)
+      }
+    }
+    "break on string" in {
+      running(inMemory) {
+
+        val header = FakeRequest(GET, "/users/by/age/fifty-two")
+
+        val result = route(header).get
+
+        status(result) must equalTo(400)
+      }
+    }
+  }
+
   "GET /user/by/email/:email" should {
     "return a user when there is an exact match" in {
       running(inMemory) {

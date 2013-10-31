@@ -39,6 +39,13 @@ object Users extends Application {
     }
   }
 
+  def findByAge(age: Int) = Action.async {
+    users.findByAge(age).map {
+      list =>
+        Ok(Json.toJson(list))
+    }
+  }
+
   import play.api.data._
   import play.api.data.Forms._
 

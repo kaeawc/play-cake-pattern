@@ -40,7 +40,7 @@ class UserRepositorySpec
         Await.result(userRepository.findByName("e"), wait).length must between(5,5)
         Await.result(userRepository.findByName("f"), wait).length must between(1,2)
         Await.result(userRepository.findByName("g"), wait).length must between(1,1)
-        Await.result(userRepository.findByName("h"), wait).length must between(1,1)
+        Await.result(userRepository.findByName("h"), wait).length must between(1,2)
 
       }
     }
@@ -54,6 +54,17 @@ class UserRepositorySpec
 
         Await.result(result, Duration(500, MILLISECONDS)) must beSome
 
+      }
+    }
+  }
+
+  "UserRepository.findByAge" should {
+    "return a list of users with the provided age" in {
+      running(inMemory){
+        val wait = Duration(500, MILLISECONDS)
+        Await.result(userRepository.findByAge(26), wait).length mustEqual(1)
+        Await.result(userRepository.findByAge(52), wait).length mustEqual(1)
+        Await.result(userRepository.findByAge(0), wait).length mustEqual(9)
       }
     }
   }

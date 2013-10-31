@@ -12,7 +12,8 @@ case class User(
   email    : String,
   password : String,
   salt     : String,
-  active   : Boolean = true
+  active   : Boolean = true,
+  age      : Int
 ) {
 
   def toJson:JsValue = User.toJson(this)
@@ -25,7 +26,8 @@ object User extends ((
   String,
   String,
   String,
-  Boolean
+  Boolean,
+  Int
 ) => User) {
 
   implicit val r = Json.reads[User]
@@ -39,11 +41,12 @@ object User extends ((
     get[String]("email") ~
     get[String]("password") ~
     get[String]("salt") ~
-    get[Boolean]("active")
+    get[Boolean]("active") ~
+    get[Int]("age")
 
   val fromDB = sqlResult map {
-    case id~name~email~password~salt~active =>
-    User(id,name,email,password,salt,active) }
+    case id~name~email~password~salt~active~age =>
+    User(id,name,email,password,salt,active,age) }
 
   def toJson(user:User):JsValue = Json.toJson(user)
   def fromJson(user:JsValue):Option[User] = {
