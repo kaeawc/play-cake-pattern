@@ -15,8 +15,7 @@ class UserRouteSpec
 
   "GET /user/:id" should {
 
-    "bad request when given a String" in {
-      running(inMemory) {
+    "bad request when given a String" in new WithApp {
 
         val header = FakeRequest(GET, "/user/asdfasdf")
 
@@ -24,11 +23,9 @@ class UserRouteSpec
 
         status(result) must equalTo(400)
 
-      }
     }
 
-    "bad request when given a fraction" in {
-      running(inMemory) {
+    "bad request when given a fraction" in new WithApp {
 
         val header = FakeRequest(GET, "/user/123.51")
 
@@ -36,11 +33,9 @@ class UserRouteSpec
 
         status(result) must equalTo(400)
 
-      }
     }
 
-    "not found if the user doesn't exist" in {
-      running(inMemory) {
+    "not found if the user doesn't exist" in new WithApp {
 
         val header = FakeRequest(GET, "/user/9999999")
 
@@ -48,11 +43,9 @@ class UserRouteSpec
 
         status(result) must equalTo(404)
 
-      }
     }
 
-    "found if the user exists" in {
-      running(inMemory) {
+    "found if the user exists" in new WithApp {
 
         val header = FakeRequest(GET, "/user/1")
 
@@ -60,39 +53,33 @@ class UserRouteSpec
 
         status(result) must equalTo(200)
 
-      }
     }
   }
 
   "GET /users/by/name/:name" should {
-    "return a list of users" in {
-      running(inMemory) {
+    "return a list of users" in new WithApp {
 
         val header = FakeRequest(GET, "/users/by/name/Alice")
 
         val result = route(header).get
 
         status(result) must equalTo(200)
-      }
     }
   }
 
   "GET /user/by/email/:email" should {
-    "return a user when there is an exact match" in {
-      running(inMemory) {
+    "return a user when there is an exact match" in new WithApp {
 
         val header = FakeRequest(GET, "/user/by/email/alice@company.com")
 
         val result = route(header).get
 
         status(result) must equalTo(200)
-      }
     }
   }
 
   "POST /create/user" should {
-    "create a new user" in {
-      running(inMemory) {
+    "create a new user" in new WithApp {
 
         val anyEmail =  "asdf@company.com"
 
@@ -106,36 +93,30 @@ class UserRouteSpec
         val result = route(header,body).get
 
         status(result) must equalTo(201)
-      }
     }
 
-    "fail if there is no request body" in {
-      running(inMemory) {
+    "fail if there is no request body" in new WithApp {
 
         val header = FakeRequest(POST, "/user")
 
         val result = route(header).get
 
         status(result) must equalTo(400)
-      }
     }
 
-    "fail if the request body can't be bound correctly" in {
-      running(inMemory) {
+    "fail if the request body can't be bound correctly" in new WithApp {
 
         val header = FakeRequest(POST, "/user")
 
         val result = route(header).get
 
         status(result) must equalTo(400)
-      }
     }
   }
 
   "DELETE /user/:id" should {
 
-    "bad request when given a String" in {
-      running(inMemory) {
+    "bad request when given a String" in new WithApp {
 
         val header = FakeRequest(DELETE, "/user/asdfasdf")
 
@@ -143,11 +124,9 @@ class UserRouteSpec
 
         status(result) must equalTo(400)
 
-      }
     }
 
-    "bad request when given a fraction" in {
-      running(inMemory) {
+    "bad request when given a fraction" in new WithApp {
 
         val header = FakeRequest(DELETE, "/user/123.51")
 
@@ -155,30 +134,24 @@ class UserRouteSpec
 
         status(result) must equalTo(400)
 
-      }
     }
 
-    "not found if the user doesn't exist" in {
-      running(inMemory) {
+    "not found if the user doesn't exist" in new WithApp {
 
         val header = FakeRequest(DELETE, "/user/9999999")
 
         val result = route(header).get
 
         status(result) must equalTo(404)
-
-      }
     }
 
-    "expire the given user" in {
-      running(inMemory) {
+    "expire the given user" in new WithApp {
 
         val header = FakeRequest(DELETE, "/user/1")
 
         val result = route(header).get
 
         status(result) must equalTo(202)
-      }
     }
   }
 }

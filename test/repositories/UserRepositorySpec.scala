@@ -14,51 +14,44 @@ class UserRepositorySpec
   with Mockito {
 
   "UserRepository.getById" should {
-    "return some user if it exists" in {
-      running(inMemory) {
+    "return some user if it exists" in new WithApp {
 
         val result = users.getById(1L)
 
         Await.result(result, Duration(5, MILLISECONDS)) must beSome
 
-      }
     }
   }
 
   "UserRepository.findByName" should {
-    "return a list of users" in {
-      running(inMemory) {
+    "return a list of users" in new WithApp {
 
-        val wait = Duration(15, MILLISECONDS)
+        val timeout = Duration(15, MILLISECONDS)
 
-        Await.result(users.findByName("a"), wait).length must between(6,7)
-        Await.result(users.findByName("b"), wait).length must between(1,1)
-        Await.result(users.findByName("c"), wait).length must between(2,2)
-        Await.result(users.findByName("d"), wait).length must between(2,3)
-        Await.result(users.findByName("e"), wait).length must between(5,5)
-        Await.result(users.findByName("f"), wait).length must between(1,2)
-        Await.result(users.findByName("g"), wait).length must between(1,1)
-        Await.result(users.findByName("h"), wait).length must between(1,1)
+        Await.result(users.findByName("a"), timeout).length must between(6,7)
+        Await.result(users.findByName("b"), timeout).length must between(1,1)
+        Await.result(users.findByName("c"), timeout).length must between(2,2)
+        Await.result(users.findByName("d"), timeout).length must between(2,3)
+        Await.result(users.findByName("e"), timeout).length must between(5,5)
+        Await.result(users.findByName("f"), timeout).length must between(1,2)
+        Await.result(users.findByName("g"), timeout).length must between(1,1)
+        Await.result(users.findByName("h"), timeout).length must between(1,1)
 
-      }
     }
   }
 
   "UserRepository.getByEmail" should {
-    "return a user when there is an exact match" in {
-      running(inMemory) {
+    "return a user when there is an exact match" in new WithApp {
 
         val result = users.getByEmail("ben@company.com")
 
         Await.result(result, Duration(5, MILLISECONDS)) must beSome
 
-      }
     }
   }
 
   "UserRepository.create" should {
-    "create a new user" in {
-      running(inMemory) {
+    "create a new user" in new WithApp {
 
         val request = users.create("zed","zed@company.com","zed's Ultimate password!")
 
@@ -68,18 +61,15 @@ class UserRepositorySpec
 
         result.get must beGreaterThan(0L)
 
-      }
     }
   }
 
   "UserRepository.expire" should {
-    "expire the given user" in {
-      running(inMemory) {
+    "expire the given user" in new WithApp {
 
         val result = users.expire(1L)
 
         Await.result(result, Duration(5, MILLISECONDS)) must equalTo(1L)
-      }
     }
   }
 }

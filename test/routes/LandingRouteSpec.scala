@@ -10,8 +10,7 @@ class LandingRouteSpec extends Specification {
 
   "GET /" should {
 
-    "return 200 always" in {
-      running(inMemory) {
+    "return 200 always" in new WithApp {
 
         val header = FakeRequest(GET, "/")
 
@@ -19,14 +18,12 @@ class LandingRouteSpec extends Specification {
 
         status(result) must equalTo(OK)
 
-      }
     }
   }
 
   "GET anything else not in the routes file" should {
 
-    "return 404 always" in {
-      running(inMemory) {
+    "return 404 always" in new WithApp {
 
         val header = FakeRequest(GET, "/anythingelse")
 
@@ -34,7 +31,6 @@ class LandingRouteSpec extends Specification {
 
         status(result) must equalTo(404)
 
-      }
     }
   }
 }
