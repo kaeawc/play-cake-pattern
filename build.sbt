@@ -8,8 +8,8 @@ libraryDependencies ++= Seq(
   cache,
   "mysql" % "mysql-connector-java" % "5.1.26",
   "com.typesafe.play.extras" %% "iteratees-extras" % "1.0.1",
-  "org.specs2" %% "specs2" % "2.1.1",
-  "org.mockito" % "mockito-all" % "1.9.0"
+  "org.specs2" %% "specs2" % "2.3.3",
+  "org.mockito" % "mockito-all" % "1.9.5"
 )
 
 scalacOptions ++= Seq(
