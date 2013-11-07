@@ -25,6 +25,8 @@ trait UserRepositoryComponent {
 
     def expire(id:Long):Future[Long]
 
+    def findByAge(age:Int):Future[List[User]]
+
   }
 
   class AnormUsers extends UserRepository {
@@ -39,7 +41,8 @@ trait UserRepositoryComponent {
               email,
               password,
               salt,
-              active
+              active,
+              age
             FROM user
             WHERE id = {id}
             LIMIT 1
@@ -60,7 +63,8 @@ trait UserRepositoryComponent {
               email,
               password,
               salt,
-              active
+              active,
+              age
             FROM user
             WHERE name LIKE '%' || {name} || '%'
           """
@@ -68,6 +72,25 @@ trait UserRepositoryComponent {
           'name -> name
         ).as(User.fromDB *)
       }
+    }
+
+    def findByAge(age:Int) = Future {
+      DB.withConnection { implicit connection =>
+      SQL(
+        """
+          SELECT
+            id,
+            name,
+            email,
+            password,
+            salt,
+            active,
+            age
+          FROM user
+          WHERE age={age}
+        """).on(
+      'age -> age
+      ).as(User.fromDB *)}
     }
 
     def getByEmail(email:String) = Future {
@@ -80,7 +103,8 @@ trait UserRepositoryComponent {
               email,
               password,
               salt,
-              active
+              active,
+              age
             FROM user
             WHERE email = {email}
             LIMIT 1
