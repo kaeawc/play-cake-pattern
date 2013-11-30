@@ -50,3 +50,7 @@ I was looking at these tutorials:
                              UserRepository with Mockito (doesn't really test
                              anything, just showing for demo purposes)
       package.scala        - helper method for FakeApplication config
+
+## Now a Typesafe Activator Template!
+
+
