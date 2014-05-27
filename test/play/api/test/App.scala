@@ -1,4 +1,4 @@
-package test
+package play.api.test
 
 import org.specs2.mutable._
 import org.specs2.runner._
@@ -13,27 +13,28 @@ import ExecutionContext.Implicits.global
 
 import org.specs2.execute.{Result, AsResult}
 
-object Quick {
+abstract class App(app:FakeApplication = App.app) extends WithApplication(app) {
 
-  def app = FakeApplication(additionalConfiguration =
-    Map(
-      "db.default.driver" -> "org.h2.Driver",
-      "db.default.url" -> "jdbc:h2:mem:play;MODE=MYSQL;DB_CLOSE_DELAY=-1",
-      "evolutionplugin" -> "enabled",
-      "applyEvolutions.default" -> "true"
-    )
-  )
-
-}
-
-abstract class WithApp(app:FakeApplication = Quick.app) extends WithApplication(app) {
   override def around[T: AsResult](t: => T): Result = super.around {
     setupData()
     t
   }
 
   def setupData() {
-    // setup data
+
   }
 }
 
+object App {
+
+  def app = FakeApplication(additionalConfiguration =
+    Map(
+      "evolutionplugin" -> "enabled",
+
+      "db.default.driver" -> "org.h2.Driver",
+      "db.default.url" -> "jdbc:h2:mem:default",
+      "applyEvolutions.default" -> "true",
+      "applyDownEvolutions.default" -> "true"
+    )
+  )
+}
