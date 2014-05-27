@@ -10,7 +10,7 @@ import specs2.text
 
 object Login extends Controller with services.Auth {
 
-  def auth = new AuthService
+  val auth = new AuthService
 
   def post = Action.async {
     implicit request =>

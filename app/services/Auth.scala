@@ -6,7 +6,7 @@ import ExecutionContext.Implicits.global
 
 trait Auth {
 
-  def auth:AuthContract
+  val auth:AuthContract
   type SignupForm = forms.Signup
   type LoginForm = forms.Login
 
@@ -20,7 +20,7 @@ trait Auth {
 
   class AuthService extends AuthContract {
 
-    def users = new AnormUsers
+    val users = new AnormUsers
 
     def login(form:LoginForm) =
       users.getByEmail(form.email) map {

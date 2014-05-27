@@ -12,7 +12,7 @@ import play.api.Play.current
 
 trait Users {
 
-  def users:UserContract
+  val users:UserContract
 
   trait UserContract {
 
