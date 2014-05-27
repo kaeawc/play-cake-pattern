@@ -2,6 +2,8 @@ name := "play-cake"
 
 version := "1.0-SNAPSHOT"
 
+scalaVersion := "2.11"
+
 libraryDependencies ++= Seq(
   jdbc,
   anorm,
@@ -9,7 +11,8 @@ libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "5.1.26",
   "com.typesafe.play.extras" %% "iteratees-extras" % "1.0.1",
   "org.specs2" %% "specs2" % "2.3.3",
-  "org.mockito" % "mockito-all" % "1.9.5"
+  "org.mockito" % "mockito-all" % "1.9.5",
+  "joda-time" % "joda-time" % "2.3"
 )
 
 scalacOptions ++= Seq(
