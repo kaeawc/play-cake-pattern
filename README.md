@@ -11,25 +11,22 @@ I was looking at these tutorials:
 ## How this is organized
 
     /app
-      /components
-        Default            - trait to extend all the default services
-                             and repositories you would want to use
-                             by default.
       /controllers
-        Application        - defines app config (namely inheriting
-                             components.Default) for all other
-                             controllers
+        /auth
+          Signup           - validates Signup form data
+          Login            - validates Login form data
+          Logout           - removes any cookies
         Landing            - renders HTML for landing route
-        Users              - JSON API for Users, makes use of UserService
-                             (and thereby the UserRepository)
       /entities
         User               - the only entity in the entire app, has
                              implicit JSON serialization and Anorm SQL
                              Result mapping
       /repositories
-        UserRepository     - traits and classes for handling data layer
+        Users              - traits and classes for handling data layer
                              for Users, implementation of Anorm
       /services
+        Auth               - traits and classes for handling authentication
+                             for Users
     /conf                  - some configs
     /project
       Build.scala          - note that while Play 2.x bundles specs2
