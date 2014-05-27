@@ -1,16 +1,13 @@
-package test.routes
+package controllers
 
-import org.specs2.mutable._
-
-import test._
 import play.api.test._
 import play.api.test.Helpers._
 
-class LandingRouteSpec extends Specification {
+class LandingSpec extends Specification {
 
   "GET /" should {
 
-    "return 200 always" in new WithApp {
+    "return 200 always" in new App {
 
         val header = FakeRequest(GET, "/")
 
@@ -23,7 +20,7 @@ class LandingRouteSpec extends Specification {
 
   "GET anything else not in the routes file" should {
 
-    "return 404 always" in new WithApp {
+    "return 404 always" in new App {
 
         val header = FakeRequest(GET, "/anythingelse")
 
