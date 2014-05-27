@@ -7,7 +7,8 @@ CREATE TABLE user (
   email            VARCHAR(255) NOT NULL,
   password         VARCHAR(255) NOT NULL,
   salt             VARCHAR(255) NOT NULL,
-  active           BOOLEAN   NOT NULL DEFAULT 1
+  active           BOOLEAN      NOT NULL DEFAULT 1,
+  created          DATETIME     NOT NULL
 );
 
 CREATE INDEX USERACTIVEINDEX ON user(active);
