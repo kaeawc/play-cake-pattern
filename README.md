@@ -34,18 +34,17 @@ I was looking at these tutorials:
                              simply running the app
     /test
       /repositories
-        UserRepositorySpec - bit redundant to write tests on this with
+        UsersSpec          - bit redundant to write tests on this with
                              a FakeApplication since the routes spec covers
                              the same code, was just being thorough :)
       /routes
-        LandingRouteSpec   - just being thorough, covers the only HTML
+        LandingSpec        - just being thorough, covers the only HTML
                              route
-        UserRouteSpec      - covers the JSON Users API with FakeApplication
+        SignupSpec         - covers the JSON Users API with FakeApplication
                              instances
       /services
-        UserServiceSpec    - unit tests the UserService by mocking
-                             UserRepository with Mockito (doesn't really test
-                             anything, just showing for demo purposes)
+        AuthSpec           - unit tests the Auth by using partial mocking
+                             with Mockito
       package.scala        - helper method for FakeApplication config
 
 ## Now a Typesafe Activator Template!
