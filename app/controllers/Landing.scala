@@ -2,7 +2,7 @@ package controllers
 
 import play.api.mvc._
 
-object Landing extends Application {
+object Landing extends Controller {
 
   def index = Action {
     Ok("")
